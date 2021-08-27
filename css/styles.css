@@ -58,15 +58,15 @@ model-viewer {
     z-index: 10;
 }
 
-.text {
-    text-align: center;
-    font-size: 4vh;
-    width: 100%;
-    height: 100%;
-    color: mediumspringgreen;
-	position: absolute;
-    top: 45%;
-	left: 0;
+.spotify {
+    width: 15%;
+    height: auto;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     z-index: 10;
 }
 
