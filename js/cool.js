@@ -4,7 +4,10 @@ const Network = opensea.Network
 const Web3 = require("web3")
 
 
-const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/59938e653dd147b08f830faa2deda492')
+window.ethereum.enable()
+
+
+const provider = window.ethereum
 
 
 const seaport = new OpenSeaPort(provider, {
@@ -37,5 +40,3 @@ window.onload = function(){
         main()
     })
 }
-
-console.log(window.ethereum.enable())
