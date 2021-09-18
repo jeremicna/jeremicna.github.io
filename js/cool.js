@@ -19,14 +19,14 @@ const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
 
 const asset = {
     tokenAddress: "0xc9cb0fee73f060db66d2693d92d75c825b1afdbf", // CryptoKitties
-    tokenId: "3253", // Token ID
+    tokenId: "325", // Token ID
 }
 
 async function main() {
     const offer = await seaport.createBuyOrder({
         asset: {
             tokenAddress: "0xc9cb0fee73f060db66d2693d92d75c825b1afdbf", // CryptoKitties
-            tokenId: "3253", // Token ID
+            tokenId: "325", // Token ID
         },
         accountAddress,
         // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
