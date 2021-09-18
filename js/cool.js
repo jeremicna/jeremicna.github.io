@@ -5,7 +5,7 @@ const Web3 = require("web3")
 const MD5 = require("crypto-js/md5")
 
 
-console.log(MD5("SHEEEEEEESH"))
+console.log(MD5("SHEEEEEEESH").toString())
 window.ethereum.enable()
 
 
