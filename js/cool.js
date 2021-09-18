@@ -26,4 +26,8 @@ async function main() {
     console.log(balance.greaterThan(0))
 }
 
+document.getElementById("enter").addEventListener("click", function(){
+    main()
+})
+
 console.log(window.ethereum.enable())
