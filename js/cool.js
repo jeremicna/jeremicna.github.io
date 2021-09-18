@@ -7,7 +7,7 @@ const Web3 = require("web3")
 window.ethereum.enable()
 
 
-const provider = window.web3.currentProvider
+const provider = window.ethereum
 
 
 const seaport = new OpenSeaPort(provider, {
