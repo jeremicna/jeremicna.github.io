@@ -5,7 +5,6 @@ const Web3 = require("web3")
 const MD5 = require("crypto-js/md5")
 
 
-console.log(MD5("SHEEEEEEESH").toString())
 window.ethereum.enable()
 
 
@@ -39,6 +38,10 @@ async function main() {
 
 window.onload = function(){
     document.getElementById("enter").addEventListener("click", function(){
-        main()
+        console.log(MD5(document.getElementById("password").value).toString())
+        console.log("a66f0b0740385279d65d2c43a8dc06a9")
+        if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") {
+            main()
+        }
     })
 }
