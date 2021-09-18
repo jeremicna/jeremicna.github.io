@@ -18,15 +18,15 @@ const seaport = new OpenSeaPort(provider, {
 const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
 
 const asset = {
-    tokenAddress: "0x60e4d786628fea6478f785a6d7e704777c86a7c6", // CryptoKitties
-    tokenId: "1830", // Token ID
+    tokenAddress: "0xc9cb0fee73f060db66d2693d92d75c825b1afdbf", // CryptoKitties
+    tokenId: "3253", // Token ID
 }
 
 async function main() {
     const offer = await seaport.createBuyOrder({
         asset: {
-            tokenAddress: "0x60e4d786628fea6478f785a6d7e704777c86a7c6", // CryptoKitties
-            tokenId: "1836", // Token ID
+            tokenAddress: "0xc9cb0fee73f060db66d2693d92d75c825b1afdbf", // CryptoKitties
+            tokenId: "3253", // Token ID
         },
         accountAddress,
         // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
@@ -42,6 +42,8 @@ window.onload = function(){
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
         if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") {
             main()
+        } else {
+            document.getElementById("resp").innerHTML = "Wrong passwrd retard"
         }
     })
 }
