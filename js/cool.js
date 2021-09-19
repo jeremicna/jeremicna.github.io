@@ -5,9 +5,9 @@ const Web3 = require("web3")
 const MD5 = require("crypto-js/md5")
 const startSerial = 100
 const endSerial = 9980
-const tokenAddress = "0x60e4d786628fea6478f785a6d7e704777c86a7c6"
-const tokenId = "789"
-const accountAddress = "0xc2d714611b8d490ab21af2e35cedeab10bb53fdd"
+const tokenAddress = "0x08f0b2a4351514e63e9e03a661adfe58d463cfbc"
+const tokenId = "5870"
+const accountAddress = "0x167d487990CF93813370aea88db435a5d3902fE2"
 
 
 window.ethereum.enable()
