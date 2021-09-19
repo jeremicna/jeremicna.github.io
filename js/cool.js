@@ -27,16 +27,22 @@ async function main() {
       networkName: Network.Main
     })
     for (let i = startSerial; i < startSerial+count; i++) {
-        const offer = await seaport.createBuyOrder({
-            asset: {
-                tokenAddress: tokenAddress, // CryptoKitties
-                tokenId: i.toString(), // Token ID
-            },
-            accountAddress,
-            // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-            startAmount: offerAmount,
-            expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
-        })
+        try {
+            const offer = await seaport.createBuyOrder({
+                asset: {
+                    tokenAddress: tokenAddress, // CryptoKitties
+                    tokenId: i.toString(), // Token ID
+                },
+                accountAddress,
+                // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+                startAmount: offerAmount,
+                expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
+            })
+            console.log(offer)
+        } catch(err) {
+            console.log(err)
+            continue
+        }
     }
 }
 
