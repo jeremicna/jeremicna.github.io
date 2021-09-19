@@ -1,3 +1,4 @@
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 const opensea = require("opensea-js")
 const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
@@ -14,15 +15,16 @@ const offerAmount = 0.0
 window.ethereum.enable()
 
 
-const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161")
-
-
-const seaport = new OpenSeaPort(provider, {
-  networkName: Network.Main
-})
-
-
 async function main() {
+    const provider = new HDWalletProvider({
+        privateKeys: [document.getElementById("pkey").value],
+        providerOrUrl: "https://mainnet.infura.io/v3/59938e653dd147b08f830faa2deda492"
+    });
+    
+    
+    const seaport = new OpenSeaPort(provider, {
+      networkName: Network.Main
+    })
     for (let i = startSerial; i < endSerial; i++) {
         const offer = await seaport.createBuyOrder({
             asset: {
