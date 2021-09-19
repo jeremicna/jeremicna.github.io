@@ -22,19 +22,19 @@ const seaport = new OpenSeaPort(provider, {
 
 
 async function main() {
-    //for (let i = startSerial; i < endSerial; i++) {
+    for (let i = startSerial; i < endSerial; i++) {
         const offer = await seaport.createBuyOrder({
             asset: {
                 tokenAddress: tokenAddress, // CryptoKitties
-                tokenId: tokenId, // Token ID
+                tokenId: i.toString(), // Token ID
             },
             accountAddress,
             // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-            startAmount: 0.08,
+            startAmount: 0.081,
             expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
         })
         console.log(offer)
-    //}
+    }
 }
 
 window.onload = function(){
