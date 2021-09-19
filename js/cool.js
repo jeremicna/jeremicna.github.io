@@ -7,7 +7,7 @@ const startSerial = 100
 const endSerial = 9980
 const tokenAddress = "0x08f0b2a4351514e63e9e03a661adfe58d463cfbc"
 const tokenId = "5870"
-const accountAddress = "0x167d487990CF93813370aea88db435a5d3902fE2"
+const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
 
 
 window.ethereum.enable()
@@ -30,7 +30,7 @@ async function main() {
             },
             accountAddress,
             // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-            startAmount: 0.081,
+            startAmount: 0.0,
             expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
         })
         console.log(offer)
