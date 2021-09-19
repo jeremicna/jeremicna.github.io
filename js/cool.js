@@ -14,7 +14,7 @@ const offerAmount = 0.0
 window.ethereum.enable()
 
 
-const provider = window.ethereum
+const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/59938e653dd147b08f830faa2deda492")
 
 
 const seaport = new OpenSeaPort(provider, {
