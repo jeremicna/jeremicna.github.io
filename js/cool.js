@@ -8,6 +8,7 @@ const endSerial = 9980
 const tokenAddress = "0x08f0b2a4351514e63e9e03a661adfe58d463cfbc"
 const tokenId = "5870"
 const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
+const offerAmount = 0.0
 
 
 window.ethereum.enable()
@@ -30,7 +31,47 @@ async function main() {
             },
             accountAddress,
             // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-            startAmount: 0.0,
+            startAmount: offerAmount,
+            expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
+        })
+        const offer2 = await seaport.createBuyOrder({
+            asset: {
+                tokenAddress: tokenAddress, // CryptoKitties
+                tokenId: (i+1).toString(), // Token ID
+            },
+            accountAddress,
+            // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+            startAmount: offerAmount,
+            expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
+        })
+        const offer3 = await seaport.createBuyOrder({
+            asset: {
+                tokenAddress: tokenAddress, // CryptoKitties
+                tokenId: (i+2).toString(), // Token ID
+            },
+            accountAddress,
+            // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+            startAmount: offerAmount,
+            expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
+        })
+        const offer4 = await seaport.createBuyOrder({
+            asset: {
+                tokenAddress: tokenAddress, // CryptoKitties
+                tokenId: (i+3).toString(), // Token ID
+            },
+            accountAddress,
+            // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+            startAmount: offerAmount,
+            expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
+        })
+        const offer5 = await seaport.createBuyOrder({
+            asset: {
+                tokenAddress: tokenAddress, // CryptoKitties
+                tokenId: (i+4).toString(), // Token ID
+            },
+            accountAddress,
+            // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+            startAmount: offerAmount,
             expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
         })
         console.log(offer)
