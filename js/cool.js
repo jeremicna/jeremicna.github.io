@@ -5,8 +5,8 @@ const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
 const tokenAddress = "0xb5f3dee204ca76e913bb3129ba0312b9f0f31d82"
-const accountAddress = "0x167d487990CF93813370aea88db435a5d3902fE2"
-const offerAmount = 0.135
+const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
+const offerAmount = 0.0
 
 
 window.ethereum.enable()
@@ -19,7 +19,7 @@ async function main() {
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
-        providerOrUrl: "https://mainnet.infura.io/v3/59938e653dd147b08f830faa2deda492"
+        providerOrUrl: "https://eth-mainnet.alchemyapi.io/v2/98FU1uo1p9pfp6KV2iS8GEi3Ny4JD5zR"
     });
     
     
@@ -36,7 +36,7 @@ async function main() {
                 accountAddress,
                 // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
                 startAmount: offerAmount,
-                expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * 2)
+                expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
             })
             console.log(offer)
         } catch(err) {
