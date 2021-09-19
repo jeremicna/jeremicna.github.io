@@ -30,7 +30,7 @@ async function main() {
             },
             accountAddress,
             // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-            startAmount: 0.00,
+            startAmount: 0.08,
             expirationTime: Math.round(Date.now() / 1000 + 60 * 60)
         })
         console.log(offer)
