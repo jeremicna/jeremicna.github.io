@@ -4,9 +4,9 @@ const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
-const tokenAddress = "0xb5f3dee204ca76e913bb3129ba0312b9f0f31d82"
+const tokenAddress = "0x943cc300dd938d8490d33d794507fedc25c49002"
 const accountAddress = "0x167d487990CF93813370aea88db435a5d3902fE2"
-const offerAmount = 0.135
+const offerAmount = 0.111
 
 
 window.ethereum.enable()
