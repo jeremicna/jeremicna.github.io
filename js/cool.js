@@ -15,7 +15,7 @@ async function main() {
     const offerAmount = parseFloat(document.getElementById("offeramount").value)
     const startSerial = parseInt(document.getElementById("ss").value)
     const count = parseInt(document.getElementById("count").value)
-    console.log(startSerial, typeof(startSerial), count, typeof(count). tokenAddress, typeof(tokenAddress), offerAmount. typeof(offerAmount))
+    console.log(startSerial, typeof(startSerial), count, typeof(count), tokenAddress, typeof(tokenAddress), offerAmount, typeof(offerAmount))
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
