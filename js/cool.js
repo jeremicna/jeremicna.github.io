@@ -12,7 +12,7 @@ window.ethereum.enable()
 
 async function main() {
     const tokenAddress = document.getElementById("colltoken").value
-    const offerAmount = parseInt(document.getElementById("offeramount").value)
+    const offerAmount = parseFloat(document.getElementById("offeramount").value)
     const startSerial = parseInt(document.getElementById("ss").value)
     const count = parseInt(document.getElementById("count").value)
     console.log(startSerial, typeof(startSerial), count, typeof(count). tokenAddress, typeof(tokenAddress), offerAmount. typeof(offerAmount))
