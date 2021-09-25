@@ -4,7 +4,7 @@ const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
-const accountAddress = "0x167d487990CF93813370aea88db435a5d3902fE2"
+const accountAddress = "0xc2d714611b8d490ab21af2e35cedeab10bb53fdd"
 
 
 window.ethereum.enable()
