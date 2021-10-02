@@ -4,18 +4,21 @@ const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
-const accountAddress = "0x167d487990cf93813370aea88db435a5d3902fe2"
+const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
 
 
 window.ethereum.enable()
 
 
 async function main() {
+    const targetSerials = document.getElementById("serials").value.split(" ")
+    console.log(targetSerials.length)
     const tokenAddress = document.getElementById("colltoken").value
     const offerAmount = parseFloat(document.getElementById("offeramount").value)
     const startSerial = parseInt(document.getElementById("ss").value)
     const count = parseInt(document.getElementById("count").value)
-    console.log(startSerial, typeof(startSerial), count, typeof(count), tokenAddress, typeof(tokenAddress), offerAmount, typeof(offerAmount))
+    const hours = parseInt(document.getElementById("expiry").value)
+    console.log(startSerial, typeof(startSerial), count, typeof(count), tokenAddress, typeof(tokenAddress), offerAmount, typeof(offerAmount), hours, typeof(hours))
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
@@ -31,12 +34,12 @@ async function main() {
             const offer = await seaport.createBuyOrder({
                 asset: {
                     tokenAddress: tokenAddress, // CryptoKitties
-                    tokenId: i.toString(), // Token ID
+                    tokenId: targetSerials[i], // Token ID
                 },
                 accountAddress,
                 // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
                 startAmount: offerAmount,
-                expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * 2)
+                expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
             })
             console.log(offer)
         } catch(err) {
@@ -49,8 +52,10 @@ async function main() {
 
 window.onload = function(){
     document.getElementById("enter").addEventListener("click", function(){
+
         console.log(MD5(document.getElementById("password").value).toString())
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
+
         if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") {
             main()
         } else {
