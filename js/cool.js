@@ -4,7 +4,7 @@ const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
-const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
+const accountAddress = "0x167d487990cf93813370aea88db435a5d3902fe2"
 var active = true
 
 
@@ -31,7 +31,6 @@ async function main() {
       networkName: Network.Main
     })
     for (let i = startSerial; i < startSerial+count; i++) {
-        if (active) {
             try {
                 const offer = await seaport.createBuyOrder({
                     asset: {
@@ -48,9 +47,6 @@ async function main() {
                 console.log(err)
                 continue
             }
-        } else {
-            i--
-        }
     }
     console.log("run done")
 }
@@ -64,17 +60,6 @@ window.onload = function(){
             main()
         } else {
             document.getElementById("resp").innerHTML = "Wrong passwrd retard"
-        }
-    })
-    document.getElementById("pause").addEventListener("click", function(){
-        if (active) {
-            active = false
-            console.log("Paused")
-            document.getElementById("pause").value = "Unpause"
-        } else {
-            active = true
-            console.log("Unpaused")
-            document.getElementById("pause").value = "Pause"
         }
     })
 }
