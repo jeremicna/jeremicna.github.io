@@ -49,10 +49,7 @@ async function main() {
                 continue
             }
         } else {
-            setTimeout(function(){
-                i--
-                console.log(i)
-            }, 1000)
+            i--
         }
     }
     console.log("run done")
