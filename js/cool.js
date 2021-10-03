@@ -5,6 +5,7 @@ const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
 const accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
+var active = true
 
 
 window.ethereum.enable()
@@ -30,21 +31,28 @@ async function main() {
       networkName: Network.Main
     })
     for (let i = startSerial; i < startSerial+count; i++) {
-        try {
-            const offer = await seaport.createBuyOrder({
-                asset: {
-                    tokenAddress: tokenAddress, // CryptoKitties
-                    tokenId: targetSerials[i], // Token ID
-                },
-                accountAddress,
-                // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-                startAmount: offerAmount,
-                expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
-            })
-            console.log(offer)
-        } catch(err) {
-            console.log(err)
-            continue
+        if (active) {
+            try {
+                const offer = await seaport.createBuyOrder({
+                    asset: {
+                        tokenAddress: tokenAddress, // CryptoKitties
+                        tokenId: targetSerials[i], // Token ID
+                    },
+                    accountAddress,
+                    // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
+                    startAmount: offerAmount,
+                    expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
+                })
+                console.log(i, offer)
+            } catch(err) {
+                console.log(err)
+                continue
+            }
+        } else {
+            setTimeout(function(){
+                i--
+                console.log(i)
+            }, 1000)
         }
     }
     console.log("run done")
@@ -52,7 +60,6 @@ async function main() {
 
 window.onload = function(){
     document.getElementById("enter").addEventListener("click", function(){
-
         console.log(MD5(document.getElementById("password").value).toString())
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
 
@@ -60,6 +67,17 @@ window.onload = function(){
             main()
         } else {
             document.getElementById("resp").innerHTML = "Wrong passwrd retard"
+        }
+    })
+    document.getElementById("pause").addEventListener("click", function(){
+        if (active) {
+            active = false
+            console.log("Paused")
+            document.getElementById("pause").value = "Unpause"
+        } else {
+            active = true
+            console.log("Unpaused")
+            document.getElementById("pause").value = "Pause"
         }
     })
 }
