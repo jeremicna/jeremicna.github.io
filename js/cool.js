@@ -4,8 +4,13 @@ const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
-const accountAddress = "0x167d487990cf93813370aea88db435a5d3902fe2"
+const accountAddress = ""
 var active = true
+
+
+// ADD DOUBLE CLICK TO GO TWICE AS FAST WITH ARRAY TO NOT DO THEM TWICE
+// NOTIFY WHEN MARGIN GETS CLAPPED
+// AUTOMATION
 
 
 window.ethereum.enable()
@@ -57,6 +62,10 @@ window.onload = function(){
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
 
         if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") {
+            accountAddress = "0x167d487990cf93813370aea88db435a5d3902fe2"
+            main()
+        } else if (MD5(document.getElementById("password").value).toString() == "08d73df56eabed0bb5dec9346fd8570b") {
+            accountAddress = "0xc5fdeF0fF84be777E045d2cB05359d3Fc66f9023"
             main()
         } else {
             document.getElementById("resp").innerHTML = "Wrong passwrd retard"

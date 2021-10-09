@@ -31,3 +31,4 @@ for payload in token_id_payloads:
 
 file = open("output.txt", "w")
 file.write(" ".join(alr_hit))
+file.close()
