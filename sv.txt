@@ -1,0 +1,31 @@
+    print(detected)
+    print((len(detected) / len(listed_serials)) * 100, "% Of listings have bids")
+    collection_data["collections"][ctoken]["bid_to_listing_rato"] = len(detected) / len(listed_serials)
+
+    floor_price = 0
+
+    for price in listing_prices["collections"][ctoken]:
+        if price < floor_price or floor_price == 0:
+            floor_price = price
+            print(floor_price)
+
+    print()
+    print(listing_prices)
+    print("Floor Price: ", floor_price)
+    override = input("Override Floor Price? (y/n): ")
+    if override == "y":
+        floor_price = float(input("Enter Desired Floor Price: "))
+        
+    collection_data["collections"][ctoken]["floor_price"] = floor_price
+    collection_data["collections"][ctoken]["bid_count"] = len(detected.items())
+
+
+    ratios = [0.05, 0.1, 0.15, 0.20, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+    for ratio in ratios:
+        theoretical_bid = floor_price * ratio
+        beat_bids_count = 0
+        for key, value in detected.items():
+            if theoretical_bid > int(value) / pow(10, 18):
+                beat_bids_count += 1
+        collection_data["collections"][ctoken][str(ratio)+"_bbc"] = beat_bids_count
+        print("Bid", ratio*100, "% Of floor to beat", beat_bids_count/len(detected.items())*100, "% Of bids")

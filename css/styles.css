@@ -1,93 +1,14 @@
-html, body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden
-}
-
 body {
-    background-color: white;
-    background-size: 100% 100%;
+    display: flex;
 }
 
-model-viewer {
-    width: 100%;
+.split {
     height: 100%;
-}
-
-.filter {
-    width: 100%;
-    height: 100%;
-    background-size: 100% 100%;
-	position: absolute;
-    opacity: 0.1;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
     top: 0;
-	left: 0;
-    z-index: 10;
-}
+    overflow-x: hidden;
+    padding-top: 20px;
+ }
 
-.earth {
-    width: 100%;
-    height: 100%;
-    background-size: 100% 100%;
-	position: absolute;
-    opacity: 0.5;
-    top: 0;
-	left: 0;
-    z-index: 10;
-}
-
-.border {
-    width: 100%;
-    height: 100%;
-    background-size: 100% 100%;
-	position: absolute;
-    top: 0;
-	left: 0;
-    z-index: 10;
-}
-
-.message {
-    text-align: center;
-    font-size: 3vh;
-    width: 100%;
-    height: 100%;
-    color: red;
-	position: absolute;
-    top: 85%;
-	left: 0;
-    z-index: 10;
-}
-
-.clock {
-    text-align: center;
-    font-size: 3vh;
-    width: 100%;
-    height: 100%;
-    color: blueviolet;
-	position: absolute;
-    top: 12.5%;
-	left: 0;
-    z-index: 10;
-}
-
-.spotify {
-    width: 30%;
-    height: auto;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-
-.background {
-    width: 100%;
-    height: 100%;
-    background-size: 100% 100%;
-	position: absolute;
-    top: 0;
-	left: 0;
-    z-index: 10;
-}

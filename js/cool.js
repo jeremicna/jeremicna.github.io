@@ -14,7 +14,7 @@ var active = true
 // AUTOMATION
 
 
-window.ethereum.enable()
+//window.ethereum.enable()
 
 
 async function main() {
@@ -75,5 +75,62 @@ window.onload = function(){
         } else {
             document.getElementById("resp").innerHTML = "Wrong passwrd retard"
         }
+    })
+    document.getElementById("fetch").addEventListener("click", function(){
+        console.log("Sheesh you clicked")
+        fetch("https://os-master.fruitbarrel.repl.co").then(function(response) {
+            return response.json()
+        }).then(function(data){
+            console.log(data)
+            const tokenAddress = document.getElementById("colltoken").value
+            let collectionName = data["collections"][tokenAddress]["collection_name"]
+            let collectionDescription = data["collections"][tokenAddress]["collection_description"]
+            let floorPrice = data["collections"][tokenAddress]["floor_price"]
+            let listingCount = data["collections"][tokenAddress]["listing_count"]
+            let bidCount = data["collections"][tokenAddress]["bid_count"]
+            let updatedAt = new Date(data["collections"][tokenAddress]["updated_at"]*1000)
+            let listedSerialString = ""
+
+            for (let key in data["collections"][tokenAddress]["listed_serials"]) {
+                listedSerialString += key + " "
+            }
+
+            document.getElementById("serials").value = listedSerialString
+            document.getElementById("collection_name").innerHTML = collectionName
+            //document.getElementById("collection_description").innerHTML = collectionDescription
+            document.getElementById("token_address").innerHTML = tokenAddress
+            document.getElementById("floor_price").innerHTML = "Floor Price: " + floorPrice
+            document.getElementById("listing_count").innerHTML = "Listing Count: " + listingCount
+            document.getElementById("bid_count").innerHTML = "Bid Count: " + bidCount
+            document.getElementById("updated_at").innerHTML = "Updated At: " + updatedAt
+
+            document.getElementById("0.05_bbc").innerHTML = "BB@5%: " + data["collections"][tokenAddress]["0.05_bbc"]
+            document.getElementById("0.10_bbc").innerHTML = "BB@10%: " + data["collections"][tokenAddress]["0.1_bbc"]
+            document.getElementById("0.15_bbc").innerHTML = "BB@15%: " + data["collections"][tokenAddress]["0.15_bbc"]
+            document.getElementById("0.20_bbc").innerHTML = "BB@20%: " + data["collections"][tokenAddress]["0.2_bbc"]
+            document.getElementById("0.25_bbc").innerHTML = "BB@25%: " + data["collections"][tokenAddress]["0.25_bbc"]
+            document.getElementById("0.30_bbc").innerHTML = "BB@30%: " + data["collections"][tokenAddress]["0.3_bbc"]
+            document.getElementById("0.35_bbc").innerHTML = "BB@35%: " + data["collections"][tokenAddress]["0.35_bbc"]
+            document.getElementById("0.40_bbc").innerHTML = "BB@40%: " + data["collections"][tokenAddress]["0.4_bbc"]
+            document.getElementById("0.45_bbc").innerHTML = "BB@45%: " + data["collections"][tokenAddress]["0.45_bbc"]
+            document.getElementById("0.50_bbc").innerHTML = "BB@50%: " + data["collections"][tokenAddress]["0.5_bbc"]
+            document.getElementById("0.55_bbc").innerHTML = "BB@55%: " + data["collections"][tokenAddress]["0.55_bbc"]
+            document.getElementById("0.60_bbc").innerHTML = "BB@60%: " + data["collections"][tokenAddress]["0.6_bbc"]
+            document.getElementById("0.65_bbc").innerHTML = "BB@65%: " + data["collections"][tokenAddress]["0.65_bbc"]
+            document.getElementById("0.70_bbc").innerHTML = "BB@70%: " + data["collections"][tokenAddress]["0.7_bbc"]
+            document.getElementById("0.75_bbc").innerHTML = "BB@75%: " + data["collections"][tokenAddress]["0.75_bbc"]
+            document.getElementById("0.80_bbc").innerHTML = "BB@80%: " + data["collections"][tokenAddress]["0.8_bbc"]
+            document.getElementById("0.85_bbc").innerHTML = "BB@85%: " + data["collections"][tokenAddress]["0.85_bbc"]
+            document.getElementById("0.90_bbc").innerHTML = "BB@90%: " + data["collections"][tokenAddress]["0.9_bbc"]
+            document.getElementById("0.95_bbc").innerHTML = "BB@95%: " + data["collections"][tokenAddress]["0.95_bbc"]
+            document.getElementById("1.00_bbc").innerHTML = "BB@100%: " + data["collections"][tokenAddress]["1.0_bbc"]
+
+
+            // Display it
+        }).catch(function(err) {
+            console.log("Something errored lol but idk what it is")
+            console.log("Nvm i found what it is", err)
+        })
+
     })
 }
