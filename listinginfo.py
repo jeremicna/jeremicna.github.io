@@ -35,7 +35,7 @@ proxies = [
     "https://19-1.fruitbarrel.repl.co",
     "https://20-1.fruitbarrel.repl.co"
 ]
-payload_index = -1
+payload_index = 0
 proxy_index = 0
 reqs_active = 0
 done = True
@@ -90,6 +90,7 @@ def get_listed_serials_thread(ctoken, payloads):
         reqs_active += 1
         request = requests.get(F"{proxies[proxy_index]}/proxy?url=~{req.url}~")
         reqs_active -= 1
+        print("ra"+str(reqs_active))
 
         print("ReqDone")
 
@@ -101,12 +102,14 @@ def get_listed_serials_thread(ctoken, payloads):
                 if order["payment_token_contract"]["id"] == 1:
                     collection_data["collections"][ctoken]["listed_serials"][order["asset"]["token_id"]] = float(order["current_price"]) / pow(10, 18)
                     listing_prices["collections"][ctoken].append(float(order["current_price"]) / pow(10, 18))
+        
+        time.sleep(0.5)
 
     collection_data["collections"][ctoken]["collection_name"] = collection_name
-    collection_data["collections"][ctoken]["collection_desc"] = collection_desc
+    collection_data["collections"][ctoken]["collection_description"] = collection_desc
     # collection_data["collections"][ctoken]["listed_serials"] += detected
     
-    if reqs_active <= 0:
+    if reqs_active == 0:
         done = True
         print("done")
 
@@ -123,7 +126,7 @@ def get_listed_serials(ctoken, payloads):
         time.sleep(0.5)
 
     while not done:
-        time.sleep(1)
+        time.sleep(5)
 
 
 
@@ -176,6 +179,8 @@ def get_highest_bids_thread(ctoken, basic_payloads):
         for order in request.json()["orders"]:
             if order["asset"]["token_id"] not in collection_data["collections"][ctoken]["bids"]:
                 collection_data["collections"][ctoken]["bids"][order["asset"]["token_id"]] = int(order["base_price"]) / pow(10, 18)
+        
+        time.sleep(0.5)
 
     if reqs_active <= 0:
         done = True
@@ -202,11 +207,7 @@ def get_highest_bids(ctoken, basic_payloads):
 
 def add_stats(ctoken):
     global display
-    floor_price = 0
-
-    for key, value in collection_data["collections"][ctoken]["listed_serials"].items():
-        if value < floor_price or floor_price == 0:
-            floor_price = value
+    floor_price = list(dict(sorted(collection_data["collections"][ctoken]["listed_serials"].items(), key=lambda x: x[1])).values())[0]
 
 
     collection_data["collections"][ctoken]["floor_price"] = floor_price
@@ -260,11 +261,11 @@ while True:
 
         payloads = get_payloads(c)
 
-        payload_index = -1
+        payload_index = 0
         get_listed_serials(c, payloads)
         print(collection_data)
 
-        payload_index = -1
+        payload_index = 0
         get_highest_bids(c, payloads)
         add_stats(c)
 

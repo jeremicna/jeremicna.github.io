@@ -4,6 +4,7 @@ const OpenSeaPort = opensea.OpenSeaPort
 const Network = opensea.Network
 const Web3 = require("web3")
 const MD5 = require("crypto-js/md5");
+const { stringify } = require("querystring");
 var accountAddress = ""
 var alchemy = ""
 var active = true
@@ -95,6 +96,11 @@ window.onload = function(){
                 listedSerialString += key + " "
             }
 
+            if (document.getElementById("floor_override").value != "") {
+                console.log("FloorOverriden")
+                floorPrice = parseFloat(document.getElementById("floor_override").value)
+            }
+
             document.getElementById("serials").value = listedSerialString
             document.getElementById("collection_name").innerHTML = collectionName
             //document.getElementById("collection_description").innerHTML = collectionDescription
@@ -104,6 +110,30 @@ window.onload = function(){
             document.getElementById("bid_count").innerHTML = "Bid Count: " + bidCount
             document.getElementById("updated_at").innerHTML = "Updated At: " + updatedAt
 
+            let ratios = [0.05, 0.1, 0.15, 0.20, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+            for (let index in ratios) {
+                console.log(ratios[index])
+                let theoreticalBid = (floorPrice * ratios[index]).toFixed(4)
+                let beatBidsCount = 0
+                for (let key in data["collections"][tokenAddress]["bids"]) {
+                    if (theoreticalBid > data["collections"][tokenAddress]["bids"][key]) {
+                        beatBidsCount ++
+                    }
+                }
+
+                document.getElementById(ratios[index]).innerHTML = `BB@${(ratios[index] * 100).toFixed(0)} (${theoreticalBid}): ${beatBidsCount}`
+                /*
+                const label = document.createElement("label")
+                const node = document.createTextNode(`BB@${(ratios[index] * 100).toFixed(0)} (${theoreticalBid}): ${beatBidsCount}`)
+                label.appendChild(node)
+                label.setAttribute("id", ratios[index])
+                const sr = document.getElementById("split right")
+                sr.appendChild(label)
+                sr.appendChild(br)
+                */
+            }
+
+            /*
             document.getElementById("0.05_bbc").innerHTML = "BB@5%: " + data["collections"][tokenAddress]["0.05_bbc"]
             document.getElementById("0.10_bbc").innerHTML = "BB@10%: " + data["collections"][tokenAddress]["0.1_bbc"]
             document.getElementById("0.15_bbc").innerHTML = "BB@15%: " + data["collections"][tokenAddress]["0.15_bbc"]
@@ -124,7 +154,7 @@ window.onload = function(){
             document.getElementById("0.90_bbc").innerHTML = "BB@90%: " + data["collections"][tokenAddress]["0.9_bbc"]
             document.getElementById("0.95_bbc").innerHTML = "BB@95%: " + data["collections"][tokenAddress]["0.95_bbc"]
             document.getElementById("1.00_bbc").innerHTML = "BB@100%: " + data["collections"][tokenAddress]["1.0_bbc"]
-
+            */
 
             // Display it
         }).catch(function(err) {
