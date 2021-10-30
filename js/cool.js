@@ -72,6 +72,10 @@ window.onload = function(){
             accountAddress = "0xc5fdeF0fF84be777E045d2cB05359d3Fc66f9023"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
             main()
+        } else if (MD5(document.getElementById("password").value).toString() == "ee5bf3c471288eda453ff4dd65ccd10a") {
+            accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
+            alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
+            main()
         } else {
             document.getElementById("resp").innerHTML = "Wrong passwrd retard"
         }
