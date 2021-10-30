@@ -23,16 +23,12 @@ async function main() {
     console.log(targetSerials.length)
     const tokenAddress = document.getElementById("colltoken").value
     const offerAmount = parseFloat(document.getElementById("offeramount").value)
-    const startSerial = parseInt(document.getElementById("ss").value)
-    const count = parseInt(document.getElementById("count").value)
     const hours = parseInt(document.getElementById("expiry").value)
-    console.log(startSerial, typeof(startSerial), count, typeof(count), tokenAddress, typeof(tokenAddress), offerAmount, typeof(offerAmount), hours, typeof(hours))
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
         providerOrUrl: alchemy
     });
-    
     
     const seaport = new OpenSeaPort(provider, {
       networkName: Network.Main
