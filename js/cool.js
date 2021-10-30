@@ -37,7 +37,7 @@ async function main() {
     const seaport = new OpenSeaPort(provider, {
       networkName: Network.Main
     })
-    for (let i = startSerial; i < startSerial+count; i++) {
+    for (let i = 0; i < targetSerials.length; i++) {
             try {
                 const offer = await seaport.createBuyOrder({
                     asset: {
