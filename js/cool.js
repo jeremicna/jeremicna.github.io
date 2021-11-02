@@ -8,6 +8,7 @@ const { stringify } = require("querystring");
 var accountAddress = ""
 var alchemy = ""
 var active = true
+var decentraSerials = []
 
 
 // ADD DOUBLE CLICK TO GO TWICE AS FAST WITH ARRAY TO NOT DO THEM TWICE
@@ -20,7 +21,10 @@ var active = true
 
 async function main() {
     console.log("STARTED PISSMODE")
-    const targetSerials = document.getElementById("serials").value.split(" ")
+    let targetSerials = document.getElementById("serials").value.split(" ")
+    if (document.getElementById("serials").value == "decentramode") {
+        targetSerials = decentraSerials
+    }
     console.log(targetSerials.length)
     const tokenAddress = document.getElementById("colltoken").value
     const offerAmount = parseFloat(document.getElementById("offeramount").value)
@@ -133,34 +137,24 @@ window.onload = function(){
                 */
             }
 
-            /*
-            document.getElementById("0.05_bbc").innerHTML = "BB@5%: " + data["collections"][tokenAddress]["0.05_bbc"]
-            document.getElementById("0.10_bbc").innerHTML = "BB@10%: " + data["collections"][tokenAddress]["0.1_bbc"]
-            document.getElementById("0.15_bbc").innerHTML = "BB@15%: " + data["collections"][tokenAddress]["0.15_bbc"]
-            document.getElementById("0.20_bbc").innerHTML = "BB@20%: " + data["collections"][tokenAddress]["0.2_bbc"]
-            document.getElementById("0.25_bbc").innerHTML = "BB@25%: " + data["collections"][tokenAddress]["0.25_bbc"]
-            document.getElementById("0.30_bbc").innerHTML = "BB@30%: " + data["collections"][tokenAddress]["0.3_bbc"]
-            document.getElementById("0.35_bbc").innerHTML = "BB@35%: " + data["collections"][tokenAddress]["0.35_bbc"]
-            document.getElementById("0.40_bbc").innerHTML = "BB@40%: " + data["collections"][tokenAddress]["0.4_bbc"]
-            document.getElementById("0.45_bbc").innerHTML = "BB@45%: " + data["collections"][tokenAddress]["0.45_bbc"]
-            document.getElementById("0.50_bbc").innerHTML = "BB@50%: " + data["collections"][tokenAddress]["0.5_bbc"]
-            document.getElementById("0.55_bbc").innerHTML = "BB@55%: " + data["collections"][tokenAddress]["0.55_bbc"]
-            document.getElementById("0.60_bbc").innerHTML = "BB@60%: " + data["collections"][tokenAddress]["0.6_bbc"]
-            document.getElementById("0.65_bbc").innerHTML = "BB@65%: " + data["collections"][tokenAddress]["0.65_bbc"]
-            document.getElementById("0.70_bbc").innerHTML = "BB@70%: " + data["collections"][tokenAddress]["0.7_bbc"]
-            document.getElementById("0.75_bbc").innerHTML = "BB@75%: " + data["collections"][tokenAddress]["0.75_bbc"]
-            document.getElementById("0.80_bbc").innerHTML = "BB@80%: " + data["collections"][tokenAddress]["0.8_bbc"]
-            document.getElementById("0.85_bbc").innerHTML = "BB@85%: " + data["collections"][tokenAddress]["0.85_bbc"]
-            document.getElementById("0.90_bbc").innerHTML = "BB@90%: " + data["collections"][tokenAddress]["0.9_bbc"]
-            document.getElementById("0.95_bbc").innerHTML = "BB@95%: " + data["collections"][tokenAddress]["0.95_bbc"]
-            document.getElementById("1.00_bbc").innerHTML = "BB@100%: " + data["collections"][tokenAddress]["1.0_bbc"]
-            */
-
             // Display it
         }).catch(function(err) {
             console.log("Something errored lol but idk what it is")
             console.log("Nvm i found what it is", err)
         })
 
+    })
+    document.getElementById("decentramode").addEventListener("click", function(){
+        fetch("https://decentraserials.fruitbarrel.repl.co").then(function(response){
+            return response.json()
+        }).then(function(data){
+            console.log(data)
+            decentraSerials = data
+            document.getElementById("colltoken").value = "0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d"
+            document.getElementById("serials").value = "decentramode"
+        }).catch(function(err){
+            console.log("Something errored lol but idk what it is")
+            console.log("Nvm i found what it is", err)
+        })
     })
 }
