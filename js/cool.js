@@ -9,6 +9,7 @@ var accountAddress = ""
 var alchemy = ""
 var active = true
 var decentraSerials = []
+var sandySerials = []
 
 
 // ADD DOUBLE CLICK TO GO TWICE AS FAST WITH ARRAY TO NOT DO THEM TWICE
@@ -24,6 +25,8 @@ async function main() {
     let targetSerials = document.getElementById("serials").value.split(" ")
     if (document.getElementById("serials").value == "decentramode") {
         targetSerials = decentraSerials
+    } else if (document.getElementById("serials").value == "sandymode") {
+        targetSerials = sandySerials
     }
     console.log(targetSerials.length)
     const tokenAddress = document.getElementById("colltoken").value
@@ -152,6 +155,19 @@ window.onload = function(){
             decentraSerials = data
             document.getElementById("colltoken").value = "0xf87e31492faf9a91b02ee0deaad50d51d56d5d4d"
             document.getElementById("serials").value = "decentramode"
+        }).catch(function(err){
+            console.log("Something errored lol but idk what it is")
+            console.log("Nvm i found what it is", err)
+        })
+    })
+    document.getElementById("sandymode").addEventListener("click", function(){
+        fetch("https://sandboxserials.fruitbarrel.repl.co").then(function(response){
+            return response.json()
+        }).then(function(data){
+            console.log(data)
+            sandySerials = data
+            document.getElementById("colltoken").value = "0x50f5474724e0ee42d9a4e711ccfb275809fd6d4a"
+            document.getElementById("serials").value = "sandymode"
         }).catch(function(err){
             console.log("Something errored lol but idk what it is")
             console.log("Nvm i found what it is", err)
