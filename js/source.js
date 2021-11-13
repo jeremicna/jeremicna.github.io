@@ -68,24 +68,28 @@ window.onload = function(){
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
         console.log("08d73df56eabed0bb5dec9346fd8570b")
 
-        if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") {
+        if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") { // olivemain
             accountAddress = "0x167d487990cf93813370aea88db435a5d3902fe2"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/98FU1uo1p9pfp6KV2iS8GEi3Ny4JD5zR"
             main()
-        } else if (MD5(document.getElementById("password").value).toString() == "08d73df56eabed0bb5dec9346fd8570b") {
+        } else if (MD5(document.getElementById("password").value).toString() == "08d73df56eabed0bb5dec9346fd8570b") { // ludovic
             accountAddress = "0xc5fdeF0fF84be777E045d2cB05359d3Fc66f9023"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
             main()
-        } else if (MD5(document.getElementById("password").value).toString() == "ee5bf3c471288eda453ff4dd65ccd10a") {
+        } else if (MD5(document.getElementById("password").value).toString() == "ee5bf3c471288eda453ff4dd65ccd10a") { // mine
             accountAddress = "0xC2d714611B8d490aB21AF2E35cEdeAB10bb53fDd"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
             main()
-        } else if (MD5(document.getElementById("password").value).toString() == "66270b4fb4e2273f846361c1ca6b0864") {
+        } else if (MD5(document.getElementById("password").value).toString() == "66270b4fb4e2273f846361c1ca6b0864") { // mine1
             accountAddress = "0x49484Ca89a87778798EDf6fDbC74166170b25ec7"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
             main()
-        } else if (MD5(document.getElementById("password").value).toString() == "2a8d495332634769d85c5ce60b8e6ee4") {
+        } else if (MD5(document.getElementById("password").value).toString() == "2a8d495332634769d85c5ce60b8e6ee4") { // mine2
             accountAddress = "0x16de22f2EFA0ECb80CBE0e6fB304d13FF5C8793e"
+            alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
+            main()
+        } else if (MD5(document.getElementById("password").value).toString() == "b211ee8c8dda2c9c864d08028605553c") { // sensational
+            accountAddress = "0x2d98E1daF60F778AB57dc7A12cF98919DdA17540"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
             main()
         } else {
