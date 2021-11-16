@@ -50,7 +50,7 @@ async function main() {
                 }).then(function(data){
                     let bespokeOfferAmount = 0
                     let highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
-                    console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
+                    console.log("highest offer for serial", targetSerials[0], highestOfferForSerial)
                     if (offerAmount > highestOfferForSerial) {
                         bespokeOfferAmount = highestOfferForSerial += 0.003
                     }
