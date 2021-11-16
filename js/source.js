@@ -42,10 +42,10 @@ async function main() {
     const seaport = new OpenSeaPort(provider, {
       networkName: Network.Main
     })
-    for (let i = 0; i < targetSerials.length; i++) {
+    //for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode") {
             try {
-                fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`).then(function(response){
+                fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[0]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`).then(function(response){
                     return response.json()
                 }).then(function(data){
                     let bespokeOfferAmount = 0
@@ -57,7 +57,8 @@ async function main() {
                     dynamicOffers.push(bespokeOfferAmount)
                     console.log("Dynamic Offer", bespokeOfferAmount)//, dynamicOffers.sort(function(a,b) { return a - b}))
 
-                    /*
+                    
+                    
                     const offer = seaport.createBuyOrder({
                         asset: {
                             tokenAddress: tokenAddress, // CryptoKitties
@@ -70,14 +71,14 @@ async function main() {
                     }).then(function(){
                         console.log(i, offer)
                     })
-                    */
+                    
                 }).catch(function(err){
                     console.log("Something errored lol but idk what it is")
                     console.log("Nvm i found what it is", err)
                 })
             } catch(err) {
                 console.log(err)
-                continue
+                //continue
             }
         } else {
             try {
@@ -94,12 +95,12 @@ async function main() {
                 console.log(i, offer)
             } catch(err) {
                 console.log(err)
-                continue
+                //continue
             }
         }
     }
     console.log("run done")
-}
+//}
 
 window.onload = function(){
     document.getElementById("enter").addEventListener("click", function(){
