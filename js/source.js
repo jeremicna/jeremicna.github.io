@@ -46,6 +46,7 @@ async function main() {
         if (document.getElementById("serials").value == "sandymode") {
             try {
                 fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[0]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`).then(function(response){
+                    console.log(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[0]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
                     return response.json()
                 }).then(function(data){
                     let bespokeOfferAmount = 0
