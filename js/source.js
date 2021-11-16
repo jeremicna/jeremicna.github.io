@@ -45,12 +45,12 @@ async function main() {
     //for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode") {
             try {
-                fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`).then(function(response){
+                fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[0]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`).then(function(response){
                     return response.json()
                 }).then(function(data){
                     let bespokeOfferAmount = 0
                     let highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
-                    console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
+                    console.log("highest offer for serial", targetSerials[0], highestOfferForSerial)
                     if (offerAmount > highestOfferForSerial) {
                         bespokeOfferAmount = highestOfferForSerial += 0.003
                     }
@@ -61,14 +61,14 @@ async function main() {
                     const offer = seaport.createBuyOrder({
                         asset: {
                             tokenAddress: tokenAddress, // CryptoKitties
-                            tokenId: targetSerials[i], // Token ID
+                            tokenId: targetSerials[0], // Token ID
                         },
                         accountAddress,
                         // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
                         startAmount: offerAmount,
                         expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
                     }).then(function(){
-                        console.log(i, offer)
+                        console.log(0, offer)
                     })
                     
                 }).catch(function(err){
