@@ -43,7 +43,7 @@ async function main() {
       networkName: Network.Main
     })
     for (let i = 0; i < targetSerials.length; i++) {
-        if (document.getElementById("serials").value == "sandymode") {
+        if (document.getElementById("serials").value == "sandymode - just so condition fails") {
             try {
                 const response = await fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
                 const data = await response.json()
