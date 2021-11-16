@@ -57,7 +57,7 @@ async function main() {
                     dynamicOffers.push(bespokeOfferAmount)
                     console.log("Dynamic Offer", bespokeOfferAmount)//, dynamicOffers.sort(function(a,b) { return a - b}))
 
-                    
+                    /*
                     const offer = seaport.createBuyOrder({
                         asset: {
                             tokenAddress: tokenAddress, // CryptoKitties
@@ -70,6 +70,7 @@ async function main() {
                     }).then(function(){
                         console.log(i, offer)
                     })
+                    */
                 }).catch(function(err){
                     console.log("Something errored lol but idk what it is")
                     console.log("Nvm i found what it is", err)
