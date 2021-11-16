@@ -73,8 +73,9 @@ async function main() {
                             expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
                         }).then(function(){
                             console.log(0, offer)
+                        }).catch(function(err){
+                            console.log(err)
                         })
-                        
                     }).catch(function(err){
                         console.log("Something errored lol but idk what it is")
                         console.log("Nvm i found what it is", err)
@@ -104,7 +105,7 @@ async function main() {
             }
         //}
         } 
-    }, 3000)
+    }, 1000)
     console.log("run done")
 }
 
