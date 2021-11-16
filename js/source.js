@@ -42,7 +42,7 @@ async function main() {
     const seaport = new OpenSeaPort(provider, {
       networkName: Network.Main
     })
-    for (let i = 0; i < targetSerials.length; i++) {
+    //for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode") {
             try {
                 fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`).then(function(response){
@@ -74,12 +74,10 @@ async function main() {
                 }).catch(function(err){
                     console.log("Something errored lol but idk what it is")
                     console.log("Nvm i found what it is", err)
-                    return
                 })
             } catch(err) {
                 console.log(err)
-                return
-                continue
+                //continue
             }
         } else {
             try {
@@ -96,13 +94,12 @@ async function main() {
                 console.log(i, offer)
             } catch(err) {
                 console.log(err)
-                return
-                continue
+                //continue
             }
         }
     }
     console.log("run done")
-}
+//}
 
 window.onload = function(){
     document.getElementById("enter").addEventListener("click", function(){
