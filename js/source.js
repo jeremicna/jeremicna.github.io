@@ -42,8 +42,7 @@ async function main() {
     const seaport = new OpenSeaPort(provider, {
       networkName: Network.Main
     })
-    //for (let i = 0; i < targetSerials.length; i++) {
-    let i = 0
+    targetSerials = [138519, 162597, 134418]
     for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode") {
             try {
