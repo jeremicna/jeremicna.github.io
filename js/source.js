@@ -14,7 +14,6 @@ var dynamicOffers = []
 var apiKeys = [
     "2f6f419a083c46de9d83ce3dbe7db601",
 ]
-var sleepValue = parseFloat(document.getElementById("sleep").value)
 
 
 // ADD DOUBLE CLICK TO GO TWICE AS FAST WITH ARRAY TO NOT DO THEM TWICE
@@ -32,6 +31,7 @@ function sleep(ms) {
 
 async function main() {
     console.log("STARTED")
+    var sleepValue = parseFloat(document.getElementById("sleep").value)
     let targetSerials = document.getElementById("serials").value.split(" ")
     if (document.getElementById("serials").value == "decentramode") {
         targetSerials = decentraSerials
