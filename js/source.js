@@ -100,8 +100,8 @@ async function main() {
             }
         }
         console.log("b4 sleep")
-        sleep(1000)
-        console("after sleep")
+        await sleep(1000)
+        console.log("after sleep")
     } 
     console.log("run done")
 }
