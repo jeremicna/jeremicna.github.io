@@ -40,7 +40,8 @@ async function main() {
     });
     
     const seaport = new OpenSeaPort(provider, {
-      networkName: Network.Main
+        networkName: Network.Main,
+        apiKey: "2f6f419a083c46de9d83ce3dbe7db601"
     })
     for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode - just so condition fails") {
