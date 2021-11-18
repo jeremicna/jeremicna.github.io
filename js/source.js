@@ -14,6 +14,7 @@ var dynamicOffers = []
 var apiKeys = [
     "2f6f419a083c46de9d83ce3dbe7db601",
 ]
+var sleepValue = parseFloat(document.getElementById("sleep").value)
 
 
 // ADD DOUBLE CLICK TO GO TWICE AS FAST WITH ARRAY TO NOT DO THEM TWICE
@@ -100,7 +101,7 @@ async function main() {
             }
         }
         console.log("b4 sleep")
-        await sleep(1000)
+        await sleep(sleepValue)
         console.log("after sleep")
     } 
     console.log("run done")
