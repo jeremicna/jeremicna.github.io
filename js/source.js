@@ -11,6 +11,9 @@ var active = true
 var decentraSerials = []
 var sandySerials = []
 var dynamicOffers = []
+var apiKeys = [
+    "2f6f419a083c46de9d83ce3dbe7db601",
+]
 
 
 // ADD DOUBLE CLICK TO GO TWICE AS FAST WITH ARRAY TO NOT DO THEM TWICE
@@ -19,6 +22,11 @@ var dynamicOffers = []
 
 
 //window.ethereum.enable()
+
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
 async function main() {
@@ -41,7 +49,7 @@ async function main() {
     
     const seaport = new OpenSeaPort(provider, {
         networkName: Network.Main,
-        apiKey: "2f6f419a083c46de9d83ce3dbe7db601"
+        apiKey: apiKeys[0]
     })
     for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode - just so condition fails") {
@@ -91,6 +99,9 @@ async function main() {
                 continue
             }
         }
+        console.log("b4 sleep")
+        sleep(1000)
+        console("after sleep")
     } 
     console.log("run done")
 }
