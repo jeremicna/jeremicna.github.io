@@ -14,7 +14,9 @@ var dynamicOffers = []
 var apiKeys = [
     "2f6f419a083c46de9d83ce3dbe7db601",
     "091fd4ebc71b4ae198a3bf86167b6fa2",
-    "4e9ca01b6f0c403d9c5110b9c89b177a"
+    "4e9ca01b6f0c403d9c5110b9c89b177a",
+    "7c94683799a34c61b89051a5e58ad676",
+    "5cda77bcc2e64a679a1dd5ba1d38d9e2"
 ]
 
 
@@ -42,6 +44,7 @@ async function main() {
         targetSerials = sandySerials
     }
     console.log(targetSerials.length)
+    let startIndex = parseInt(document.getElementById("startindex").value)
     const tokenAddress = document.getElementById("colltoken").value
     const hours = parseInt(document.getElementById("expiry").value)
     let offerAmount = parseFloat(document.getElementById("offeramount").value)
@@ -55,8 +58,8 @@ async function main() {
         networkName: Network.Main,
         apiKey: document.getElementById("apikey").value
     })
-    for (let i = 0; i < targetSerials.length; i++) {
-        if (document.getElementById("serials").value == "sandymode") {
+    for (let i = startIndex; i < targetSerials.length; i++) {
+        if (document.getElementById("serials").value == "sandymode - temp") {
             try {
                 stime = Date.now()
                 const response = await fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
