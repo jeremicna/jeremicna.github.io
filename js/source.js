@@ -50,7 +50,7 @@ async function main() {
     
     const seaport = new OpenSeaPort(provider, {
         networkName: Network.Main,
-        apiKey: ""//apiKeys[0]
+        apiKey: apiKeys[0]
     })
     for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode - just so condition fails") {
