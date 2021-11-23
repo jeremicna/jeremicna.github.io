@@ -13,6 +13,7 @@ var sandySerials = []
 var dynamicOffers = []
 var apiKeys = [
     "2f6f419a083c46de9d83ce3dbe7db601",
+    "091fd4ebc71b4ae198a3bf86167b6fa2"
 ]
 
 
@@ -32,6 +33,7 @@ function sleep(ms) {
 async function main() {
     console.log("STARTED")
     var sleepValue = parseFloat(document.getElementById("sleep").value)
+    let reqLatency = 0
     let targetSerials = document.getElementById("serials").value.split(" ")
     if (document.getElementById("serials").value == "decentramode") {
         targetSerials = decentraSerials
@@ -50,13 +52,16 @@ async function main() {
     
     const seaport = new OpenSeaPort(provider, {
         networkName: Network.Main,
-        apiKey: apiKeys[0]
+        apiKey: apiKeys[1]
     })
     for (let i = 0; i < targetSerials.length; i++) {
-        if (document.getElementById("serials").value == "sandymode - just so condition fails") {
+        if (document.getElementById("serials").value == "sandymode") {
             try {
+                stime = Date.now()
                 const response = await fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
                 const data = await response.json()
+                ftime = Date.now()
+                reqLatency = ftime-stime
                 let bespokeOfferAmount = 0
                 let highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
                 console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
@@ -70,7 +75,7 @@ async function main() {
                 const offer = await seaport.createBuyOrder({
                     asset: {
                         tokenAddress: tokenAddress, // CryptoKitties
-                        tokenId: targetSerials[0], // Token ID
+                        tokenId: targetSerials[i], // Token ID
                     },
                     accountAddress,
                     // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
@@ -100,9 +105,9 @@ async function main() {
                 continue
             }
         }
-        console.log("b4 sleep")
-        await sleep(sleepValue)
-        console.log("after sleep")
+        console.log("sleeping...")
+        await sleep(sleepValue - reqLatency)
+        console.log("slept", sleepValue - reqLatency, "ms")
     } 
     console.log("run done")
 }
