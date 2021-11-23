@@ -1,5 +1,6 @@
 body {
     display: flex;
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 .split {
