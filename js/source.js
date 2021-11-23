@@ -13,7 +13,8 @@ var sandySerials = []
 var dynamicOffers = []
 var apiKeys = [
     "2f6f419a083c46de9d83ce3dbe7db601",
-    "091fd4ebc71b4ae198a3bf86167b6fa2"
+    "091fd4ebc71b4ae198a3bf86167b6fa2",
+    "4e9ca01b6f0c403d9c5110b9c89b177a"
 ]
 
 
@@ -52,7 +53,7 @@ async function main() {
     
     const seaport = new OpenSeaPort(provider, {
         networkName: Network.Main,
-        apiKey: apiKeys[1]
+        apiKey: apiKeys[2]
     })
     for (let i = 0; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandymode") {
