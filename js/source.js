@@ -70,7 +70,7 @@ async function main() {
                 let highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
                 console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
                 if (offerAmount > highestOfferForSerial) {
-                    bespokeOfferAmount = highestOfferForSerial += 0.003
+                    bespokeOfferAmount = (highestOfferForSerial += 0.003).toFixed(12)
                 }
                 dynamicOffers.push(bespokeOfferAmount)
                 console.log("Dynamic Offer", bespokeOfferAmount)//, dynamicOffers.sort(function(a,b) { return a - b}))
