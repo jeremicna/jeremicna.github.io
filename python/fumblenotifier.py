@@ -13,7 +13,7 @@ def webhook(message):
     payload = {
         "content": message
     }
-    request = requests.post("https://discord.com/api/webhooks/827597233884495922/iEb7bujQyCymwznUoTfNz4VwjL05Q30raSIGZ20w00_qwWvOPztNa9GWLihNmYddijem", data=payload)
+    request = requests.post("https://discord.com/api/webhooks/913180688990216304/gyULOOu97vN3uPcDY-QDatysh_mvZr5ieOh2mOmTrGYHnLtMbopAfqkiYJ1Ykqzm_CaL", data=payload)
     print("post", request.status_code)
 
 
@@ -55,22 +55,26 @@ while True:
             continue
         headers = {
             #"content-type": "application/json",
-            "x-api-key": "2f6f419a083c46de9d83ce3dbe7db601",
+            "x-api-key": "4e9ca01b6f0c403d9c5110b9c89b177a",
         }
-        request = requests.get(F"https://api.opensea.io/api/v1/events?collection_slug={slug}&event_type=successful&only_opensea=false&offset=0&limit=50&occurred_after={fetch_times[slug]}", headers=headers)
-        print("req", slug, request.status_code, request.text)
-        if len(request.json()["asset_events"]) > 0:
-            for asset_event in request.json()["asset_events"]:
-                symbol = asset_event["payment_token"]["symbol"]
-                floor = get_floor(slug)
-                ratio = (float(asset_event["total_price"]) / pow(10, 18)) / float(floor)
-                if symbol == "WETH" and ratio <= 1:
-                    message = asset_event["asset"]["asset_contract"]["name"], asset_event["asset"]["token_id"], "sold for", int(asset_event["total_price"])/pow(10,18), asset_event["payment_token"]["symbol"], F"({ratio})"
-                    webhook(message)
-                print(asset_event["asset"]["asset_contract"]["name"], asset_event["asset"]["token_id"], "sold for", int(asset_event["total_price"])/pow(10,18), asset_event["payment_token"]["symbol"], F"({ratio})")
-        fetch_times[slug] = time.time()
-        time.sleep(1)
-    time.sleep(3)
+        try:
+            request = requests.get(F"https://api.opensea.io/api/v1/events?collection_slug={slug}&event_type=successful&only_opensea=false&offset=0&limit=50&occurred_after={fetch_times[slug]}", headers=headers)
+            print("req", slug, request.status_code)
+            if len(request.json()["asset_events"]) > 0:
+                for asset_event in request.json()["asset_events"]:
+                    symbol = asset_event["payment_token"]["symbol"]
+                    floor = get_floor(slug)
+                    ratio = (float(asset_event["total_price"]) / pow(10, 18)) / float(floor)
+                    print(asset_event["asset"]["asset_contract"]["name"], asset_event["asset"]["token_id"], "sold for", int(asset_event["total_price"])/pow(10,18), asset_event["payment_token"]["symbol"], F"({ratio})")
+                    if symbol == "WETH" and ratio <= 10:
+                        print("IN THIS BIH")
+                        webhook(F'{asset_event["asset"]["asset_contract"]["name"]} {asset_event["asset"]["token_id"]} sold for {int(asset_event["total_price"])/pow(10,18)} {asset_event["payment_token"]["symbol"]} {ratio}')
+            fetch_times[slug] = time.time()
+            time.sleep(2)
+        except:
+            print("error in req/treatment")
+            continue
+    time.sleep(30)
 
 print(time.time())
 
