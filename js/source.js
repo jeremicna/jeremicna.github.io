@@ -68,7 +68,7 @@ async function main() {
                 if (proxyIndex > 3) {
                     proxyIndex = 0
                 }
-                const response = await fetch(`https://sandyproxy-${proxyIndex}.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
+                const response = await fetch(`https://sandyproxy-${proxyIndex + 1}.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
                 const data = await response.json()
                 ftime = Date.now()
                 reqLatency = ftime-stime
