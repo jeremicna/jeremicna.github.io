@@ -40,7 +40,7 @@ async function main() {
     let targetSerials = document.getElementById("serials").value.split(" ")
     if (document.getElementById("serials").value == "decentramode") {
         targetSerials = decentraSerials
-    } else if (document.getElementById("serials").value == "sandymode") {
+    } else if (document.getElementById("serials").value == "sandymode" || "sandydyanmic") {
         targetSerials = sandySerials
     }
     console.log(targetSerials.length)
