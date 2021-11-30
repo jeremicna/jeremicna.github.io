@@ -11,6 +11,7 @@ var active = true
 var decentraSerials = []
 var sandySerials = []
 var dynamicOffers = []
+var proxyIndex = 0 // For dynamic
 var apiKeys = [
     "2f6f419a083c46de9d83ce3dbe7db601",
     "091fd4ebc71b4ae198a3bf86167b6fa2",
@@ -48,6 +49,7 @@ async function main() {
     const tokenAddress = document.getElementById("colltoken").value
     const hours = parseInt(document.getElementById("expiry").value)
     let offerAmount = parseFloat(document.getElementById("offeramount").value)
+    let maxBid = parseFloat(document.getElementById("maxbid").value)
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
@@ -62,20 +64,34 @@ async function main() {
         if (document.getElementById("serials").value == "sandydynamic") {
             try {
                 stime = Date.now()
-                const response = await fetch(`https://sandyproxy.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
+                proxyIndex ++ 
+                if (proxyIndex > 3) {
+                    proxyIndex = 0
+                }
+                const response = await fetch(`https://sandyproxy-${proxyIndex}.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
                 const data = await response.json()
                 ftime = Date.now()
                 reqLatency = ftime-stime
                 let bespokeOfferAmount = 0
-                let highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
-                console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
-                if (offerAmount > highestOfferForSerial) {
-                    bespokeOfferAmount = (highestOfferForSerial += 0.003).toFixed(12)
+                let highestOfferForSerial = null
+                if (data["orders"].length > 0) {
+                    highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
                 }
+                console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
+                if (highestOfferForSerial) {
+                    if (maxBid >= (highestOfferForSerial + 0.003).toFixed(12)) {
+                        bespokeOfferAmount = (highestOfferForSerial + 0.003).toFixed(12)
+                    } else {
+                        continue
+                    }
+                } else {
+                    bespokeOfferAmount = offerAmount
+                }
+
                 dynamicOffers.push(bespokeOfferAmount)
                 console.log("Dynamic Offer", bespokeOfferAmount)//, dynamicOffers.sort(function(a,b) { return a - b}))
 
-                
+                /*
                 const offer = await seaport.createBuyOrder({
                     asset: {
                         tokenAddress: tokenAddress, // CryptoKitties
@@ -87,6 +103,7 @@ async function main() {
                     expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
                 })
                 console.log(i, offer)
+                */
             } catch(err) {
                 console.log(err)
                 continue
