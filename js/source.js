@@ -91,7 +91,7 @@ async function main() {
                 dynamicOffers.push(bespokeOfferAmount)
                 console.log("Dynamic Offer", bespokeOfferAmount)//, dynamicOffers.sort(function(a,b) { return a - b}))
 
-                /*
+                
                 const offer = await seaport.createBuyOrder({
                     asset: {
                         tokenAddress: tokenAddress, // CryptoKitties
@@ -99,11 +99,11 @@ async function main() {
                     },
                     accountAddress,
                     // Value of the offer, in units of the payment token (or wrapped ETH if none is specified):
-                    startAmount: offerAmount,
+                    startAmount: bespokeOfferAmount,
                     expirationTime: Math.round(Date.now() / 1000 + 60 * 60 * hours)
                 })
                 console.log(i, offer)
-                */
+                
             } catch(err) {
                 console.log(err)
                 continue
