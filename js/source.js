@@ -81,8 +81,8 @@ async function main() {
                 if (highestOfferForSerial) {
                     if (maxBid >= (highestOfferForSerial + 0.003).toFixed(12)) {
                         bespokeOfferAmount = (highestOfferForSerial + 0.003).toFixed(12)
-                    } else {
-                        continue
+                    } else if (maxBid <= (highestOfferForSerial + 0.003).toFixed(12)) {
+                        bespokeOfferAmount = maxBid
                     }
                 } else {
                     bespokeOfferAmount = offerAmount
