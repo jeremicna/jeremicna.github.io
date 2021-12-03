@@ -66,9 +66,12 @@ while True:
                     floor = get_floor(slug)
                     ratio = (float(asset_event["total_price"]) / pow(10, 18)) / float(floor)
                     print(asset_event["asset"]["asset_contract"]["name"], asset_event["asset"]["token_id"], "sold for", int(asset_event["total_price"])/pow(10,18), asset_event["payment_token"]["symbol"], F"({ratio})")
-                    if symbol == "WETH" and ratio <= 10:
+                    if symbol == "WETH" and ratio <= 1.0:
                         print("IN THIS BIH")
-                        webhook(F'{asset_event["asset"]["asset_contract"]["name"]} {asset_event["asset"]["token_id"]} sold for {int(asset_event["total_price"])/pow(10,18)} {asset_event["payment_token"]["symbol"]} {ratio}')
+                        message = F'{asset_event["asset"]["asset_contract"]["name"]} {asset_event["asset"]["token_id"]} sold for {int(asset_event["total_price"])/pow(10,18)} {asset_event["payment_token"]["symbol"]} {ratio}'
+                        if ratio <= 0.8:
+                            message = "@everyone" + message
+                        webhook(message)
             fetch_times[slug] = time.time()
             time.sleep(2)
         except:

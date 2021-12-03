@@ -61,7 +61,7 @@ async function main() {
         apiKey: document.getElementById("apikey").value
     })
     for (let i = startIndex; i < targetSerials.length; i++) {
-        if (document.getElementById("serials").value == "sandydynamic") {
+        if (document.getElementById("serials").value == "sandydynamic" || document.getElementById("serials").value == "decentradynamic") {
             try {
                 stime = Date.now()
                 proxyIndex ++ 
