@@ -41,7 +41,7 @@ async function main() {
     let targetSerials = document.getElementById("serials").value.split(" ")
     if (document.getElementById("serials").value == "decentramode" || document.getElementById("serials").value == "decentradynamic") {
         targetSerials = decentraSerials
-    } else if (document.getElementById("serials").value == "sandymode" || document.getElementById("serials").value == "sandydyanamic") {
+    } else if (document.getElementById("serials").value == "sandymode" || document.getElementById("serials").value == "sandydynamic") {
         targetSerials = sandySerials
     }
     console.log(targetSerials.length)
