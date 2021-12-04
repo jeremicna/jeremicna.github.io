@@ -39,9 +39,9 @@ async function main() {
     var sleepValue = parseFloat(document.getElementById("sleep").value)
     let reqLatency = 0
     let targetSerials = document.getElementById("serials").value.split(" ")
-    if (document.getElementById("serials").value == "decentramode" || "decentradynamic") {
+    if (document.getElementById("serials").value == "decentramode" || document.getElementById("serials").value == "decentradynamic") {
         targetSerials = decentraSerials
-    } else if (document.getElementById("serials").value == "sandymode" || "sandydyanmic") {
+    } else if (document.getElementById("serials").value == "sandymode" || document.getElementById("serials").value == "sandydyanmic") {
         targetSerials = sandySerials
     }
     console.log(targetSerials.length)
@@ -61,7 +61,7 @@ async function main() {
         apiKey: document.getElementById("apikey").value
     })
     for (let i = startIndex; i < targetSerials.length; i++) {
-        if (document.getElementById("serials").value == "sandydynamic" || "decentradynamic") {
+        if (document.getElementById("serials").value == "sandydynamic" || document.getElementById("serials").value == "decentradynamic") {
             try {
                 stime = Date.now()
                 proxyIndex ++ 
