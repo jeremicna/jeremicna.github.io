@@ -39,7 +39,7 @@ async function main() {
     var sleepValue = parseFloat(document.getElementById("sleep").value)
     let reqLatency = 0
     let targetSerials = document.getElementById("serials").value.split(" ")
-    if (document.getElementById("serials").value == "decentramode") {
+    if (document.getElementById("serials").value == "decentramode" || "decentradynamic") {
         targetSerials = decentraSerials
     } else if (document.getElementById("serials").value == "sandymode" || "sandydyanmic") {
         targetSerials = sandySerials
@@ -61,7 +61,7 @@ async function main() {
         apiKey: document.getElementById("apikey").value
     })
     for (let i = startIndex; i < targetSerials.length; i++) {
-        if (document.getElementById("serials").value == "sandydynamic" || document.getElementById("serials").value == "decentradynamic") {
+        if (document.getElementById("serials").value == "sandydynamic" || "decentradynamic") {
             try {
                 stime = Date.now()
                 proxyIndex ++ 
