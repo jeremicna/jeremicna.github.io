@@ -74,8 +74,10 @@ async function main() {
                 reqLatency = ftime-stime
                 let bespokeOfferAmount = 0
                 let highestOfferForSerial = null
-                if (data["orders"].length > 0) {
-                    highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
+                if ("orders" in data) {
+                    if (data["orders"].length > 0) {
+                        highestOfferForSerial = parseFloat(data["orders"][0]["current_price"]) / Math.pow(10, 18)
+                    }
                 }
                 console.log("highest offer for serial", targetSerials[i], highestOfferForSerial)
                 if (highestOfferForSerial) {
