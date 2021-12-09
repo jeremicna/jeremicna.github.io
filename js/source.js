@@ -141,8 +141,8 @@ window.onload = function(){
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
         console.log("08d73df56eabed0bb5dec9346fd8570b")
 
-        if (MD5(document.getElementById("password").value).toString() == "a66f0b0740385279d65d2c43a8dc06a9") { // olivemain
-            accountAddress = "0x167d487990cf93813370aea88db435a5d3902fe2"
+        if (MD5(document.getElementById("password").value).toString() == "cc8f5b67c1e8bb1e4b24e79b8df8a816") { // olivemain
+            accountAddress = "0x47ebeEda2ACB61510B9479970F16701651fff985"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/98FU1uo1p9pfp6KV2iS8GEi3Ny4JD5zR"
             main()
         } else if (MD5(document.getElementById("password").value).toString() == "08d73df56eabed0bb5dec9346fd8570b") { // ludovic
@@ -160,10 +160,6 @@ window.onload = function(){
         } else if (MD5(document.getElementById("password").value).toString() == "2a8d495332634769d85c5ce60b8e6ee4") { // mine2
             accountAddress = "0x16de22f2EFA0ECb80CBE0e6fB304d13FF5C8793e"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/2KR0nf7o5hWW2-n_i1SgnprxaLebcMjM"
-            main()
-        } else if (MD5(document.getElementById("password").value).toString() == "b211ee8c8dda2c9c864d08028605553c") { // sensational
-            accountAddress = "0x2d98E1daF60F778AB57dc7A12cF98919DdA17540"
-            alchemy = "https://eth-mainnet.alchemyapi.io/v2/uWdYeNPjRbGTEzefSyCw6ay4qAS5OOJf"
             main()
         } else {
             document.getElementById("resp").innerHTML = "Wrong passwrd retard"
