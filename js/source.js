@@ -34,17 +34,45 @@ function sleep(ms) {
 }
 
 
-async function main() {
-    console.log("STARTED")
-    var sleepValue = parseFloat(document.getElementById("sleep").value)
-    let reqLatency = 0
+async function getSerials() {
     let targetSerials = document.getElementById("serials").value.split(" ")
+    
     if (document.getElementById("serials").value == "decentramode" || document.getElementById("serials").value == "decentradynamic") {
         targetSerials = decentraSerials
     } else if (document.getElementById("serials").value == "sandymode" || document.getElementById("serials").value == "sandydynamic") {
         targetSerials = sandySerials
     }
-    console.log(targetSerials.length)
+
+    console.log(targetSerials)
+
+
+    if (document.getElementById("listingsonly").checked) {
+        let tokenIdPayloads = []
+
+        for (var i = 0; i < targetSerials.length; i = i+30) {
+            console.log(i)
+            let sub = []
+            for (var idx = 0; idx < 30; idx++) {
+                sub.push(i + idx)
+                console.log(idx)
+            }
+            tokenIdPayloads.push(sub)
+        } // TEST PAYLOADS 
+    }
+
+    return targetSerials
+}
+
+
+async function main() {
+    console.log("STARTED")
+    var sleepValue = parseFloat(document.getElementById("sleep").value)
+    let reqLatency = 0
+
+    getSerials().then(function(data) {
+        console.log(data)
+    })
+    return 
     let startIndex = parseInt(document.getElementById("startindex").value)
     const tokenAddress = document.getElementById("colltoken").value
     const hours = parseInt(document.getElementById("expiry").value)
