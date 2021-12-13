@@ -98,9 +98,6 @@ async function main() {
     let reqLatency = 0
 
     let targetSerials = await getSerials(tokenAddress)
-    console.log(targetSerials)
-
-    return
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
