@@ -34,7 +34,7 @@ function sleep(ms) {
 }
 
 
-async function getSerials() {
+async function getSerials(tokenAddress) {
     let targetSerials = document.getElementById("serials").value.split(" ")
     
     if (document.getElementById("serials").value == "decentramode" || document.getElementById("serials").value == "decentradynamic") {
@@ -43,21 +43,44 @@ async function getSerials() {
         targetSerials = sandySerials
     }
 
-    console.log(targetSerials)
-
-
     if (document.getElementById("listingsonly").checked) {
         let tokenIdPayloads = []
 
-        for (var i = 0; i < targetSerials.length; i = i+30) {
-            console.log(i)
+        for (let i = 0; i < targetSerials.length; i = i+30) {
             let sub = []
-            for (var idx = 0; idx < 30; idx++) {
+            for (let idx = 0; idx < 30; idx++) {
                 sub.push(i + idx)
-                console.log(idx)
             }
             tokenIdPayloads.push(sub)
         } // TEST PAYLOADS 
+
+        let listings = []
+        let proxyIndex = 0
+        for (let i = 0; i < tokenIdPayloads.length; i++) {
+            proxyIndex ++ 
+            if (proxyIndex > 3) {
+                proxyIndex = 0
+            }
+            
+            let tidString = "&"
+            for (let idx = 0; idx < tokenIdPayloads[i].length; idx++) {
+                tidString += `token_ids=${tokenIdPayloads[i][idx]}&`
+            }
+    
+            const response = await fetch(`https://sandyproxy-${proxyIndex + 1}.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&is_english=false&bundled=false&include_bundled=false&include_invalid=false${tidString}&side=1&limit=50&offset=0&order_by=created_date&order_direction=desc~`)
+            const data = await response.json()
+
+            orders = data["orders"]
+            for (let idx = 0; idx < orders.length; idx++) {
+                if (!(listings.includes(orders[idx]["asset"]["token_id"]))) {
+                    listings.push(orders[idx]["asset"]["token_id"])
+                    console.log("Listing", listings.length, "added", orders[idx]["asset"]["token_id"], listings)
+                }
+            }
+
+            console.log("LISTING COUNT:", listings.length, "STATUS:", response.status, data["orders"])
+        }
+        targetSerials = listings
     }
 
     return targetSerials
@@ -66,28 +89,29 @@ async function getSerials() {
 
 async function main() {
     console.log("STARTED")
-    var sleepValue = parseFloat(document.getElementById("sleep").value)
-    let reqLatency = 0
-
-    getSerials().then(function(data) {
-        console.log(data)
-    })
-    return 
-    let startIndex = parseInt(document.getElementById("startindex").value)
     const tokenAddress = document.getElementById("colltoken").value
     const hours = parseInt(document.getElementById("expiry").value)
+    var sleepValue = parseFloat(document.getElementById("sleep").value)
+    let startIndex = parseInt(document.getElementById("startindex").value)
     let offerAmount = parseFloat(document.getElementById("offeramount").value)
     let maxBid = parseFloat(document.getElementById("maxbid").value)
+    let reqLatency = 0
+
+    let targetSerials = await getSerials(tokenAddress)
+    console.log(targetSerials)
+
+    return
 
     const provider = new HDWalletProvider({
         privateKeys: [document.getElementById("pkey").value],
         providerOrUrl: alchemy
     });
-    
+
     const seaport = new OpenSeaPort(provider, {
         networkName: Network.Main,
         apiKey: document.getElementById("apikey").value
     })
+
     for (let i = startIndex; i < targetSerials.length; i++) {
         if (document.getElementById("serials").value == "sandydynamic" || document.getElementById("serials").value == "decentradynamic") {
             try {
@@ -96,7 +120,7 @@ async function main() {
                 if (proxyIndex > 3) {
                     proxyIndex = 0
                 }
-                const response = await fetch(`https://sandyproxy-${proxyIndex + 1}.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
+                const response = await fetch(`https://sandyproxy-${proxyIndex}.fruitbarrel.repl.co/proxy?url=~https://api.opensea.io/wyvern/v1/orders?asset_contract_address=${tokenAddress}&bundled=false&include_bundled=false&include_invalid=false&token_ids=${targetSerials[i]}&side=0&limit=50&offset=0&order_by=eth_price&order_direction=desc`)
                 const data = await response.json()
                 ftime = Date.now()
                 reqLatency = ftime-stime
@@ -257,6 +281,7 @@ window.onload = function(){
 
     })
     document.getElementById("decentramode").addEventListener("click", function(){
+        console.log("Clicked Decentramode")
         fetch("https://decentraserials.fruitbarrel.repl.co").then(function(response){
             return response.json()
         }).then(function(data){
@@ -270,6 +295,7 @@ window.onload = function(){
         })
     })
     document.getElementById("sandymode").addEventListener("click", function(){
+        console.log("Clicked Sandymode")
         fetch("https://sandboxserials.fruitbarrel.repl.co").then(function(response){
             return response.json()
         }).then(function(data){
