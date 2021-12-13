@@ -190,8 +190,12 @@ window.onload = function(){
         console.log("a66f0b0740385279d65d2c43a8dc06a9")
         console.log("08d73df56eabed0bb5dec9346fd8570b")
 
-        if (MD5(document.getElementById("password").value).toString() == "cc8f5b67c1e8bb1e4b24e79b8df8a816") { // olivemain
+        if (MD5(document.getElementById("password").value).toString() == "bf44b053a6003d7283b45d4c96c1360d") { // 100Gwei
             accountAddress = "0x47ebeEda2ACB61510B9479970F16701651fff985"
+            alchemy = "https://eth-mainnet.alchemyapi.io/v2/98FU1uo1p9pfp6KV2iS8GEi3Ny4JD5zR"
+            main()
+        } else if (MD5(document.getElementById("password").value).toString() == "e16744251267fe262c5650eb596c58ab") { // 200Gwei
+            accountAddress = "0x2186b4B668492aC05f76ecC34aD9C01A5E456815"
             alchemy = "https://eth-mainnet.alchemyapi.io/v2/98FU1uo1p9pfp6KV2iS8GEi3Ny4JD5zR"
             main()
         } else if (MD5(document.getElementById("password").value).toString() == "08d73df56eabed0bb5dec9346fd8570b") { // ludovic
