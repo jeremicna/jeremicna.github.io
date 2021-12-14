@@ -3,39 +3,73 @@ import requests
 import json
 
 
-data = {
-    "id": 0,
-    "jsonrpc":"2.0",
-    "method":"eth_getLogs",
-    "params":[
-        {
-            "fromBlock": hex(12889267),
-            "toBlock":   hex(12889267),
-            "address": "0x26a1bdfa3bb86b2744c4a42ebfdd205761d13a8a"
-        }
-    ]
+
+methods = {
+    "add_liquidity_eth": "0xf305d719",
+    "swap_exact_eth_for_tokens": "0x7ff36ab5"
 }
-hashes = []
 provider = "https://bsc-dataseed.binance.org"
+token = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
 
 
-request = requests.post(provider, data=json.dumps(data))
-print(request.json())
+def get_current_block():
+    data = {
+        "id": 0,
+        "jsonrpc":"2.0",
+        "method":"eth_blockNumber",
+        "params":[]
+    }
+    request = requests.post(provider, data=json.dumps(data))
+    print(request.json())
+    return request.json()["result"]
 
 
-for result in request.json()["result"]:
-    hashes.append(result["transactionHash"])
+def get_block_hashes(block):
+    hashes = []
 
     data = {
         "id": 0,
         "jsonrpc":"2.0",
-        "method":"eth_getTransactionByHash",
+        "method":"eth_getLogs",
         "params":[
-            ""
+            {
+                "fromBlock": block,
+                "toBlock":   block,
+                "address": token
+            }
         ]
     }
+
     request = requests.post(provider, data=json.dumps(data))
-    print(request.json())s
+    for result in request.json()["result"]:
+        hashes.append(result["transactionHash"])
+
+    print("Fetched", len(hashes), "hashes for block", int(block, 16))
+    return hashes
+
+
+def scan_transactions(hashes):
+    for hash in hashes:
+        data = {
+            "id": 0,
+            "jsonrpc":"2.0",
+            "method":"eth_getTransactionByHash",
+            "params":[
+                hash
+            ]
+        }
+        request = requests.post(provider, data=json.dumps(data))
+        print(request.json()["result"]["input"][:10], request.json()["result"]["hash"])
+        if methods["add_liquidity_eth"] in request.json()["result"]["input"]:
+            print("Liquidity added:", request.json()["result"]["hash"])
+            sys.exit()
+
+
+while True:
+    block = get_current_block()
+    hashes = get_block_hashes(block)
+    scan_transactions(hashes)
+
 
 
 
