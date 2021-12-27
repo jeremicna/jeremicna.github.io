@@ -90,7 +90,7 @@ async function getSerials(tokenAddress) {
 async function main() {
     console.log("STARTED")
     const tokenAddress = document.getElementById("colltoken").value
-    const hours = parseInt(document.getElementById("expiry").value)
+    const hours = parseFloat(document.getElementById("expiry").value)
     var sleepValue = parseFloat(document.getElementById("sleep").value)
     let startIndex = parseInt(document.getElementById("startindex").value)
     let offerAmount = parseFloat(document.getElementById("offeramount").value)
